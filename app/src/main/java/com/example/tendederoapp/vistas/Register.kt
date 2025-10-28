@@ -134,34 +134,38 @@ private fun ColumnScope.validarRegistro(
     context: Context,
     onSuccess: () -> Unit
 ) {
-    if (email.isBlank() || password.isBlank() || confirmPassword.isBlank()) {
-        Toast.makeText(context, "Ingresa Credenciales", Toast.LENGTH_SHORT).show()
-    }
+    when {
+        email.isBlank() || password.isBlank() || confirmPassword.isBlank() -> {
+            Toast.makeText(context, "Completa todos los campos", Toast.LENGTH_SHORT).show()
+        }
 
-    if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-        Toast.makeText(context, "Ingresa un Correo Valido", Toast.LENGTH_SHORT).show()
-    }
+        !Patterns.EMAIL_ADDRESS.matcher(email).matches() -> {
+            Toast.makeText(context, "Correo inválido", Toast.LENGTH_SHORT).show()
+        }
 
-    if (password.length < 6) {
-        Toast.makeText(context, "La contraseña debe tener al menos 6 caracteres", Toast.LENGTH_SHORT).show()
-    }
+        password.length < 6 -> {
+            Toast.makeText(context, "La contraseña debe tener al menos 6 caracteres", Toast.LENGTH_SHORT).show()
+        }
 
-    if (password != confirmPassword) {
-        Toast.makeText(context, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show()
+        password != confirmPassword -> {
+            Toast.makeText(context, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show()
+        }
 
-    }
-
-
-    auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
-        if (task.isSuccessful) {
-            Toast.makeText(context, "Registro Exitoso", Toast.LENGTH_SHORT).show()
-            onSuccess()
-
-        } else {
-            Toast.makeText(context, "Error en el Registro", Toast.LENGTH_SHORT).show()
+        else -> {
+            auth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        Toast.makeText(context, "Registro exitoso", Toast.LENGTH_SHORT).show()
+                        onSuccess()
+                    } else {
+                        Toast.makeText(
+                            context,
+                            "Error al registrar usuario: ${task.exception?.message}",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
         }
     }
-
-
 }
 
