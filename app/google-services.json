@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "653833833937",
+    "project_id": "tendederoapp-58c60",
+    "storage_bucket": "tendederoapp-58c60.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:653833833937:android:f53f41603f0c1cde29a4f0",
+        "android_client_info": {
+          "package_name": "com.example.tendederoapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQqP7VMGkLdtgxU_N1RrvQstoGUqBy2sY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
